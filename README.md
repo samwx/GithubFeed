@@ -1,21 +1,31 @@
-# HTML Skeleton ([Gulp](http://gulpjs.com) version)
+# Github Feed
 
-Base structure for front end project together with Gulpjs
+Display your latest github repositories with lightweight and pure JavaScript!
 
-## Quick start
+## Basic usage
 
-1. Clone the git repo — `git clone https://github.com/samwx/html-skeleton-gulp.git`;
-2. Install dependences - `npm install`;
-3. Enjoy!
+1. Call `githubFeed.js` preferably right before the `</body>` tag:
 
-## Features
+```html
+<script src="assets/js/githubFeed.js"></script>
+```
 
-* Gulp ready;
-* Placeholder crossbrowser ready;
-* Comes with twitter bootstrap.
+2. Add the code below into your HTML. The repositories will appear in this tag;
 
-## Follow-me
-* [Twitter](https://twitter.com/samwebdesign)
-* [Google Plus](https://plus.google.com/+SamuelMartins/posts)
+```html
+<div id="github-feeds"></div>
+```
 
-## Rest of description soon
+3. Copy/paste code bellow and be happy! :D
+
+```javascript
+GithubFeed.init({
+    username: 'username',       //github username
+	container: '#github-feeds', //DOM element to bind
+	count: 3, 				    //Number of repositories you'll want to show
+	order: 'desc', 			    //Order to show
+	onComplete: function() { 
+		console.log('Yeah!');   //Callback to execute after function init
+	}
+});
+```
