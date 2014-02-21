@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>GitHub Feeds</title>
+</head>
+<body>
+
+<!-- Last repos here -->
+<div id="github-feeds"></div>
+
+<script src="assets/js/githubFeed.min.js"></script>
+<script>
+	GithubFeed.init({
+		username: 'samwx',          //github username
+		container: '#github-feeds', //DOM element to bind
+		count: 3, 				    //Number of repositories you'll want to show
+		order: 'desc', 			    //Order to show
+		onComplete: function() { 
+			console.log('Yeah!');   //Callback to execute after function init
+		}
+	});
+</script>
+</body>
+</html>
