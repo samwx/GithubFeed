@@ -1,6 +1,6 @@
 # Github Feed
 
-Display your latest github repositories with lightweight and pure JavaScript!
+Display your latest github repositories with lightweight and pure JavaScript! [See demo](http://samuelmartins.me/githubfeed)
 
 ## Basic usage
 
