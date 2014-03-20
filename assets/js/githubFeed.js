@@ -1,6 +1,7 @@
 'use strict';
 
 ;(function(window, undefined) {
+	
 	window.GithubFeed = {
 
 		init: function(config) {
@@ -61,5 +62,11 @@
 			});
 		}
 	};
-	
+
+	if (typeof define === 'function' && define.amd) {
+		define('GithubFeed', [], function() {
+			return window.GithubFeed;
+		});
+	}
+
 })(window);
