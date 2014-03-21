@@ -13,6 +13,13 @@ var GithubFeed = {
 	},
 
 	objJSON: function(options, callback) {
+		var cached = this.getCache();
+
+		if ( cached !== null ) {
+			this.applyTemplate( JSON.parse( cached ) );
+			return;
+		}
+
 		var self = this;
 
 		var xhttp = self.xmlHttp();
@@ -22,16 +29,23 @@ var GithubFeed = {
 
 		xhttp.onreadystatechange = function () {
 			if (xhttp.status === 200 && xhttp.readyState === 4) {
+				this.setCache(xhttp.responseText);
 				callback(xhttp.responseText);
 			}
         };
 	},
-	getCache: function(data) {
-
-	},
 	setCache: function(data) {
-		if (window.sessionStorage) {
-			window.sessionStora.setItem = data;
+		if(sessionStorage) {
+			console.log(data);
+			sessionStorage.setItem("repos:", JSON.stringify(data));
+		}
+	},
+	getCache: function() {
+		if(sessionStorage) {
+			return sessionStorage.getItem( "repos:" + this.repo );
+		}
+		else {
+			return false;
 		}
 	},
 	bindTemplate: function(name, description, url, starCount) {
