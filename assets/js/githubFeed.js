@@ -16,7 +16,7 @@ var GithubFeed = {
 		var cached = this.getCache();
 
 		if ( cached !== null ) {
-			this.applyTemplate( JSON.parse( cached ) );
+			callback(JSON.parse( cached ));
 			return;
 		}
 
@@ -29,7 +29,7 @@ var GithubFeed = {
 
 		xhttp.onreadystatechange = function () {
 			if (xhttp.status === 200 && xhttp.readyState === 4) {
-				this.setCache(xhttp.responseText);
+				self.setCache(xhttp.responseText);
 				callback(xhttp.responseText);
 			}
         };
