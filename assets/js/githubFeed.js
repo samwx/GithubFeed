@@ -13,14 +13,13 @@ var GithubFeed = {
 	},
 
 	objJSON: function(options, callback) {
-		var cached = this.getCache();
+		var self = this;
 
+		var cached = self.getCache();
 		if ( cached !== null ) {
 			callback(JSON.parse( cached ));
 			return;
 		}
-
-		var self = this;
 
 		var xhttp = self.xmlHttp();
 		options.url = options.url || location.href;
@@ -36,13 +35,12 @@ var GithubFeed = {
 	},
 	setCache: function(data) {
 		if(sessionStorage) {
-			console.log(data);
 			sessionStorage.setItem("repos:", JSON.stringify(data));
 		}
 	},
 	getCache: function() {
 		if(sessionStorage) {
-			return sessionStorage.getItem( "repos:" + this.repo );
+			return sessionStorage.getItem( "repos:");
 		}
 		else {
 			return false;
