@@ -26,7 +26,14 @@ var GithubFeed = {
 			}
         };
 	},
+	getCache: function(data) {
 
+	},
+	setCache: function(data) {
+		if (window.sessionStorage) {
+			window.sessionStora.setItem = data;
+		}
+	},
 	bindTemplate: function(name, description, url, starCount) {
 		var container = '';
 
@@ -43,10 +50,10 @@ var GithubFeed = {
 
 		self.objJSON({url: self.url}, function(response) {
 			var repos     = JSON.parse(response),
-				reposList = document.querySelector(self.container),
-				content   = '',
-				i;
-				
+					reposList = document.querySelector(self.container),
+					content   = '',
+					i;
+
 			for(i = 0; i < repos.length; i++) {
 				content += self.bindTemplate(repos[i].name, repos[i].description, repos[i].svn_url, repos[i].stargazers_count);
 			}
