@@ -15,6 +15,12 @@ var GithubFeed = {
 	objJSON: function(options, callback) {
 		var self = this;
 
+		var cached = self.getCache();
+		if ( cached !== null ) {
+			callback(JSON.parse( cached ));
+			return;
+		}
+
 		var xhttp = self.xmlHttp();
 		options.url = options.url || location.href;
 		xhttp.open("GET", options.url, true);
@@ -22,11 +28,24 @@ var GithubFeed = {
 
 		xhttp.onreadystatechange = function () {
 			if (xhttp.status === 200 && xhttp.readyState === 4) {
+				self.setCache(xhttp.responseText);
 				callback(xhttp.responseText);
 			}
         };
 	},
-
+	setCache: function(data) {
+		if(sessionStorage) {
+			sessionStorage.setItem("repos:", JSON.stringify(data));
+		}
+	},
+	getCache: function() {
+		if(sessionStorage) {
+			return sessionStorage.getItem( "repos:");
+		}
+		else {
+			return false;
+		}
+	},
 	bindTemplate: function(name, description, url, starCount) {
 		var container = '';
 
@@ -43,10 +62,10 @@ var GithubFeed = {
 
 		self.objJSON({url: self.url}, function(response) {
 			var repos     = JSON.parse(response),
-				reposList = document.querySelector(self.container),
-				content   = '',
-				i;
-				
+					reposList = document.querySelector(self.container),
+					content   = '',
+					i;
+
 			for(i = 0; i < repos.length; i++) {
 				content += self.bindTemplate(repos[i].name, repos[i].description, repos[i].svn_url, repos[i].stargazers_count);
 			}
